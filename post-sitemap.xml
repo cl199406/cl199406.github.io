@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
     <url>
         <loc>http://yoursite.com</loc>
         <changefreq>daily</changefreq>
@@ -8,16 +7,8 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/article/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</loc>
-        <lastmod>2019-01-22T02:15:22.633Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/article/firstblog/</loc>
-        <lastmod>2019-01-22T01:18:29.193Z</lastmod>
+        <loc>http://yoursite.com/article/Hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</loc>
+        <lastmod>2019-04-09T12:18:57.210Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
