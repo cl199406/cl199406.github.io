@@ -2,17 +2,17 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <sitemap>
-        <loc>https://cl199406.github.io/post-sitemap.xml</loc>
+        <loc>http://yoursite.com/post-sitemap.xml</loc>
         <lastmod>2019-04-09T12:18:57.210Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://cl199406.github.io/page-sitemap.xml</loc>
+        <loc>http://yoursite.com/page-sitemap.xml</loc>
         <lastmod>2019-04-09T10:58:35.464Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://cl199406.github.io/tag-sitemap.xml</loc>
+        <loc>http://yoursite.com/tag-sitemap.xml</loc>
         <lastmod>2019-04-09T12:18:57.210Z</lastmod>
     </sitemap>
 
