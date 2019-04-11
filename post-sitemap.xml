@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/article/%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2%E7%9A%84python%E5%AE%9E%E7%8E%B0/</loc>
+        <lastmod>2019-04-11T07:55:37.777Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/article/HEXO%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</loc>
         <lastmod>2019-04-09T13:09:33.397Z</lastmod>
         <changefreq>weekly</changefreq>

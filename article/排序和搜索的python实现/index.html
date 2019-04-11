@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          排序算法的python实现 - cl199406 | Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/article/排序和搜索的python实现/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#排序,python" title="排序,python">排序,python</a>
+                            
+                        </div>
+                        <h1>排序算法的python实现</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by cl199406 on
+                            2019-04-10
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">cl</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="常见排序算法">常见排序算法</h1>
+<p>现在已经有了各种各样的排序算法，常见的排序算法有冒泡排序、选择排序、插入排序、希尔排序、归并排序、快速排序等。由于每一种排序算法的时间复杂度和空间复杂度都不尽相同，因而每一种算法都有着自己适合的领域。</p>
+<h2 id="冒泡排序">冒泡排序</h2>
+<p>冒泡排序每一次遍历将使列表的下一个最大值“冒泡”到正确位置。由于其的排序过程，一个n的列表将需要遍历n-1次列表。其代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    num=len(alist)</span><br><span class="line">    <span class="keyword">for</span> m <span class="keyword">in</span> range(num<span class="number">-1</span>,<span class="number">0</span>,<span class="number">-1</span>):<span class="comment">#n-1次遍历</span></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> range(m):</span><br><span class="line">            <span class="keyword">if</span> alist[n]&gt;alist[n+<span class="number">1</span>]:</span><br><span class="line">                alist[n],alist[n+<span class="number">1</span>]=alist[n+<span class="number">1</span>],alist[n]</span><br><span class="line">    <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以知道只要左边的值大于右边的值，将交换2者的值，从最终的结果看，将使整个过程做了很多“无效”的交换。</p>
+<h2 id="选择排序">选择排序</h2>
+<p>选择排序在冒泡排序基础上，每一次遍历找出该次遍历的去除已排序的最大值，并将其交换到正确的位置，因此相比冒泡排序，减小了很多的中间交换，提升了排序效率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectSort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> fillslot <span class="keyword">in</span> range(len(alist)<span class="number">-1</span>,<span class="number">0</span>,<span class="number">-1</span>):</span><br><span class="line">        positionMax=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> location <span class="keyword">in</span> range(<span class="number">1</span>,fillslot+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> alist[location]&gt;alist[positionMax]:</span><br><span class="line">                positionMax=location</span><br><span class="line">        alist[fillslot],alist[positionMax]=alist[positionMax],alist[location]<span class="comment">#每次将遍历的最大值交换到正确的位置</span></span><br><span class="line">    <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
+<h2 id="堆排序">堆排序</h2>
+<p>堆排序是指利用堆数据结构进行的一种排序，堆结构有子节点的键值或索引小于(或大于)其父节点的特性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bigEndian</span><span class="params">(alist,start,end)</span>:</span></span><br><span class="line">    root=start</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        child=root*<span class="number">2</span>+<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> child&gt;end:<span class="comment">#子节点大于最后节点退出循环</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> child+<span class="number">1</span>&lt;end <span class="keyword">and</span> alist[child]&lt;alist[child+<span class="number">1</span>]:<span class="comment">#找到左右节点中的较大节点</span></span><br><span class="line">            child+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> alist[root]&lt;alist[child]: <span class="comment">#子节点大于父节点，交换它们的值</span></span><br><span class="line">            alist[root],alist[child]=alist[child],alist[root]</span><br><span class="line">            root=child  <span class="comment">#并且继续判断交换后的子节点</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapSort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    first=len(alist)//<span class="number">2</span><span class="number">-1</span> <span class="comment">#选取最后一个非叶子节点开始</span></span><br><span class="line">    <span class="keyword">for</span> start <span class="keyword">in</span> range(first,<span class="number">-1</span>,<span class="number">-1</span>): <span class="comment">#从最后一个非叶子节点逐初始化堆结构</span></span><br><span class="line">        bigEndian(alist,start,len(alist)<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">for</span> end <span class="keyword">in</span> range(len(alist)<span class="number">-1</span>,<span class="number">0</span>,<span class="number">-1</span>): <span class="comment">#不断交换堆尾和堆顶，循环序列表</span></span><br><span class="line">        alist[<span class="number">0</span>],alist[end]=alist[end],alist[<span class="number">0</span>]</span><br><span class="line">        bigEndian(alist,<span class="number">0</span>,end<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
+<h2 id="插入排序">插入排序</h2>
+<p>插入排序即是在列表的前面维护一个有序的子列表，每一次遍历将子列表后一个值插入到这个子列表，但是这个插入是通过“移位”来实现的。移位相比交换能节约2/3的时间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertSort_</span><span class="params">(alist)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>,len(alist)):</span><br><span class="line">        currentvalue=alist[index]</span><br><span class="line">        position=index</span><br><span class="line">        <span class="keyword">while</span> position&gt;<span class="number">0</span> <span class="keyword">and</span> alist[position<span class="number">-1</span>]&gt;currentvalue：<span class="comment">#循环找到该值插入的正确位置</span></span><br><span class="line">            alist[position]=alist[position<span class="number">-1</span>]</span><br><span class="line">            position=position<span class="number">-1</span></span><br><span class="line">        alist[position]=currentvalue</span><br><span class="line">    <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
+<h2 id="希尔排序">希尔排序</h2>
+<p>希尔排序是将原无序表分为若干个子列表，每个子列表使用插入排序排序，而每个子列表则是通过设置一个增量来创建的：如一个列表为[1,2,3,4,5,6],增量为1的2个子列表为[1,3,5],[2,4,6]。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shellSort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    sublistcount=len(alist)//<span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> sublistcount&gt;<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> startposition <span class="keyword">in</span> range(sublistcount):</span><br><span class="line">            gapInsertSort(alist,startposition,sublistcount)</span><br><span class="line">        sublistcount=sublistcount//<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gapInsertSort</span><span class="params">(alist,start,gap)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(start+gap,len(alist),gap):</span><br><span class="line">        currentvalue=alist[i]</span><br><span class="line">        position=i</span><br><span class="line">        <span class="keyword">while</span> position&gt;=gap <span class="keyword">and</span> alist[position-gap]&gt;currentvalue:</span><br><span class="line">            alist[position]=alist[position-gap]</span><br><span class="line">            position=position-gap</span><br><span class="line">        alist[position]=currentvalue</span><br></pre></td></tr></table></figure>
+<h2 id="归并排序">归并排序</h2>
+<p>归并排序采用分而治之的策略，不断将列表拆分，直至最后的列表只有一项，最后再将这些子列表逐级合并得到有序列表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeSort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(alist)&gt;<span class="number">1</span>:</span><br><span class="line">        mid=len(alist)//<span class="number">2</span></span><br><span class="line">        lefthalf=alist[:mid]</span><br><span class="line">        righthalf=alist[mid:]</span><br><span class="line">        mergeSort(lefthalf) <span class="comment">#递归归并排序左右2个子列表，并且在这里假设左右子列表已经是</span></span><br><span class="line">        mergeSort(righthalf)<span class="comment">#有序列表</span></span><br><span class="line">		</span><br><span class="line">        i,j,k=<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&lt;len(lefthalf) <span class="keyword">and</span> j&lt;len(righthalf): <span class="comment">#通过3个循环将左右2个已排序子列表合并</span></span><br><span class="line">            <span class="keyword">if</span> lefthalf[i]&lt;righthalf[j]:             <span class="comment">#这里将不断从2个列表中找到较小值将之放到正确位置实现</span></span><br><span class="line">                alist[k]=lefthalf[i]</span><br><span class="line">                i=i+<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                alist[k]=righthalf[j]</span><br><span class="line">                j=j+<span class="number">1</span></span><br><span class="line">            k=k+<span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i&lt;len(lefthalf):</span><br><span class="line">            alist[k]=lefthalf[i]</span><br><span class="line">            i=i+<span class="number">1</span></span><br><span class="line">            k=k+<span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> j&lt;len(righthalf):</span><br><span class="line">            alist[k]=righthalf[j]</span><br><span class="line">            j=j+<span class="number">1</span></span><br><span class="line">            k=k+<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
+<h2 id="快速排序">快速排序</h2>
+<p>快速排序首先选一个值，一般称为枢轴值，一般是列表的第一项/最后一项/中间项，然后将列表分为大于该值和小于该值的2组，通过不断递归最后得到有序列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(alist)</span>:</span>      </span><br><span class="line">    <span class="keyword">if</span> len(data) &gt;= <span class="number">2</span>:  <span class="comment"># 递归入口及出口        </span></span><br><span class="line">        mid = data[len(alist)//<span class="number">2</span>]  <span class="comment"># 选取基准值，也可以选取第一个或最后一个元素        </span></span><br><span class="line">        left, right = [], []  <span class="comment"># 定义基准值左右两侧的列表        </span></span><br><span class="line">        data.remove(mid)  <span class="comment"># 从原始数组中移除基准值        </span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> alist:            </span><br><span class="line">            <span class="keyword">if</span> num &gt;= mid:                </span><br><span class="line">                right.append(num)            </span><br><span class="line">            <span class="keyword">else</span>:                </span><br><span class="line">                left.append(num)        </span><br><span class="line">        <span class="keyword">return</span> quick_sort(left) + [mid] + quick_sort(right)    </span><br><span class="line">    <span class="keyword">else</span>:        </span><br><span class="line">        <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
+<h2 id="基数排序">基数排序</h2>
+<p>将列表按位数切割成不同的数字，然后按位数将列表排序，其中不足的高位用0填充。例如[1,123,12,56]，依次将列表按各位、十位、百位先后排序，最后无序列表将成为[1,12,56,123]。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">radixSort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    m=max(alist)</span><br><span class="line">    n=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> m&gt;<span class="number">10</span>**n: <span class="comment">#找到列表的最高位数</span></span><br><span class="line">        n+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,n):</span><br><span class="line">        bucket=&#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>): <span class="comment">#生成十个“桶”</span></span><br><span class="line">            bucket[x]=[]</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> alist: <span class="comment">#按位将列表归类到各自的桶内</span></span><br><span class="line">            mod=int((y/(<span class="number">10</span>**i))%<span class="number">10</span>)</span><br><span class="line">            bucket[mod].append(y)</span><br><span class="line">        j=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> z <span class="keyword">in</span> range(<span class="number">10</span>): <span class="comment">#将数字从桶内取回</span></span><br><span class="line">            <span class="keyword">if</span> len(bucket[z])!=<span class="number">0</span>:</span><br><span class="line">                <span class="keyword">for</span> m <span class="keyword">in</span> bucket[z]:</span><br><span class="line">                    alist[j]=m</span><br><span class="line">                    j+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
+<h2 id="不同排序算法的时间复杂度">不同排序算法的时间复杂度</h2>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>时间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冒泡排序</td>
+<td>O(n<sup>2</sup>)</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>O(n<sup>2</sup>)</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>插入排序</td>
+<td>O(n<sup>2</sup>)</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>O(n~n<sup>2</sup>)</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td>O(radix·n)</td>
+</tr>
+</tbody>
+</table>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/HEXO的基本操作/" data-toggle="tooltip" data-placement="top" title="HEXO的基本操作">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#常见排序算法"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x5E38;&#x89C1;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#冒泡排序"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x5192;&#x6CE1;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#选择排序"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">&#x9009;&#x62E9;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#堆排序"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">&#x5806;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#插入排序"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">&#x63D2;&#x5165;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#希尔排序"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">&#x5E0C;&#x5C14;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#归并排序"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">&#x5F52;&#x5E76;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#快速排序"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">&#x5FEB;&#x901F;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#基数排序"><span class="toc-nav-number">1.8.</span> <span class="toc-nav-text">&#x57FA;&#x6570;&#x6392;&#x5E8F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#不同排序算法的时间复杂度"><span class="toc-nav-number">1.9.</span> <span class="toc-nav-text">&#x4E0D;&#x540C;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#排序,python" title="排序,python">排序,python</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/cl199406">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; cl199406 2019 
+                    <br>
+                    Theme by <a href="http://beantech.org">BeanTech</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://www.huweihuang.com">胡伟煌</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huweihuang&repo=hexo-theme-huweihuang&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
